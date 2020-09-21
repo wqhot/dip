@@ -12,15 +12,18 @@ else(CMAKE_BUILD_TYPE STREQUAL "RELEASE")
 endif(CMAKE_BUILD_TYPE STREQUAL "RELEASE")
 
 find_package(Threads)
+find_package(OpenCV 3 REQUIRED)
 
 include_directories(
         ${PROJECT_SOURCE_DIR}/includes
+        ${OpenCV_INCLUDE_DIRS}
 )
 
 add_library(diplib
         src/FreCal.cpp
         src/Image.cpp
         src/ImageBase.cpp
+        src/ImagProc.cpp
         src/ImageFeature.cpp
         src/Matrix.cpp
         src/Utils.cpp)
@@ -29,4 +32,5 @@ add_executable(${PROJECT_NAME} main.cpp)
 target_link_libraries(${PROJECT_NAME}
   diplib
   ${CMAKE_THREAD_LIBS_INIT}
+  ${OpenCV_LIBS} 
 )

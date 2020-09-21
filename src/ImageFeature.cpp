@@ -1,7 +1,6 @@
 #include <ImageFeature.h>
 
-
-
+using namespace dip;
 ImageFeature::ImageFeature() {
 }
 
@@ -14,7 +13,7 @@ ImageFeature::~ImageFeature() {
 int* ImageFeature::getHist(Image src) {
     int *hist=0;
     if (src.channel == 3) {
-        hist = (int*)malloc(sizeof(int) * 256 * 3);
+        int hist3[256 * 3];
         for (int i = 0; i < 256 * 3; i++) {
             hist[i] = 0;
         }
@@ -29,8 +28,9 @@ int* ImageFeature::getHist(Image src) {
                 hist[(int)temp + 256 * 2]++;
             }
         }
+        hist = hist3;
     }else if (src.channel == 1) {
-        hist = (int*)malloc(sizeof(int) * 256);
+        int hist1[256 * 1];
         for (int i = 0; i < 256; i++) {
             hist[i] = 0;
         }
@@ -41,6 +41,7 @@ int* ImageFeature::getHist(Image src) {
                 hist[(int)temp]++;        
             }
         }
+        hist = hist1;
     }
     return hist;
 }

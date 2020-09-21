@@ -1,6 +1,6 @@
 #include <Utils.h>
 
-
+using namespace dip;
 
 Utils::Utils() {
 }
