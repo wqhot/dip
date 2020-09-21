@@ -1,4 +1,4 @@
-#include "FreCal.h"
+#include <FreCal.h>
 #include <math.h>
 #define SQRT2 1.41421356f
 
@@ -109,7 +109,7 @@ int FreCal::FFT(Complex * src, Complex * dst, int size_n) {
 		copyComplex(&src[i], &src_com[i]);
 	}
 	FFTComplexRemap(src_com, size_n);
-	for (int i = 0; i<k; i++) {//一级蝶形运算
+	for (int i = 0; i<k; i++) {//脪禄录露碌没脨脦脭脣脣茫
 		z = 0;
 		for (int j = 0; j<size_n; j++) {
 			if ((j / (1 << i)) % 2 == 1) {

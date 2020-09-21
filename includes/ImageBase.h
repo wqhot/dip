@@ -1,7 +1,7 @@
 ////////////////////////////////////////////////////////////////
 //FileName:ImageBase.h//Creator:WQ
-//Date:2016Äê10ÔÂ29ÈÕ20:18:51
-//Comment:bmpÍ¼Ïñ¸ñÊ½ÎÄ¼şµÄ´ò¿ª
+//Date:2016å¹´10æœˆ29æ—¥20:18:51
+//Comment:bmpå›¾åƒæ ¼å¼æ–‡ä»¶çš„æ‰“å¼€
 //
 ///////////////////////////////////////////////////////////////
 #ifndef IMAGBASE_H
@@ -10,8 +10,8 @@
 #include <fstream>
 #include <string>
 #include <malloc.h>
-#include "Matrix.h"
-#include "Image.h"
+#include <Matrix.h>
+#include <Image.h>
 //typedef struct Bitmap_Mat {
 //    int channel;
 //    Matrix matrixR;
@@ -20,24 +20,24 @@
 //} Image;
 
 typedef struct Bitmap_File_Header {
-    char* bfType;//ÎÄ¼şÀàĞÍ
-    int bfSize = 0;//ÎÄ¼ş´óĞ¡
-    short bf1, bf2;//±£Áô
-    int bfOffBits = 0;//Î»Í¼Êı¾İÆ«ÒÆÁ¿
+    char* bfType;//æ–‡ä»¶ç±»å‹
+    int bfSize = 0;//æ–‡ä»¶å¤§å°
+    short bf1, bf2;//ä¿ç•™
+    int bfOffBits = 0;//ä½å›¾æ•°æ®åç§»é‡
 } BitmapFileHeader;
 
 typedef struct Bitmap_Info_Header {
-    int biSize; //ĞÅÏ¢Í·³¤¶È
-    int biWidth;//¿í¶È(px)
-    int biHeight;//¸ß¶È(px)
-    short biPlanes;//Î»Æ½ÃæÊı
-    short biBitCount;//Ã¿¸öÏñËØËùÕ¼Î»Êı
-    int biCompression;//ÊÇ·ñÑ¹Ëõ
-    int biSizeImage;//Í¼Ïñ´óĞ¡
-    int biXPelsPerMeter;//Ë®Æ½·Ö±æÂÊ
-    int biYPelsPerMeter;//´¹Ö±·Ö±æÂÊ
-    int biClrUsed;//ÑÕÉ«Êı
-    int biClrImportant;//ÖØÒªÑÕÉ«Êı
+    int biSize; //ä¿¡æ¯å¤´é•¿åº¦
+    int biWidth;//å®½åº¦(px)
+    int biHeight;//é«˜åº¦(px)
+    short biPlanes;//ä½å¹³é¢æ•°
+    short biBitCount;//æ¯ä¸ªåƒç´ æ‰€å ä½æ•°
+    int biCompression;//æ˜¯å¦å‹ç¼©
+    int biSizeImage;//å›¾åƒå¤§å°
+    int biXPelsPerMeter;//æ°´å¹³åˆ†è¾¨ç‡
+    int biYPelsPerMeter;//å‚ç›´åˆ†è¾¨ç‡
+    int biClrUsed;//é¢œè‰²æ•°
+    int biClrImportant;//é‡è¦é¢œè‰²æ•°
 } BitmapInfoHeader;
 
 typedef struct BitmapFile {
@@ -56,9 +56,9 @@ public:
     ImageBase();
     ~ImageBase();
     Image open(std::string fileName);
-    // ±£´æÍ¼Æ¬
+    // ä¿å­˜å›¾ç‰‡
     int save(std::string filename, Image bitmapMat);
-    // Ïú»Ù
+    // é”€æ¯
     int destory(Image imageMat);
 	Image create(Matrix matrix);
 };

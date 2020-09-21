@@ -1,12 +1,12 @@
 #ifndef IMAGPROC_H
 #define IMAGPROC_H
-#include "Matrix.h"
-#include "ImageBase.h"
+#include <Matrix.h>
+#include <ImageBase.h>
 #include <math.h>
-#include "Utils.h"
-#include "Image.h"
-#include "FreCal.h"
-#include "ImageFeature.h"
+#include <Utils.h>
+#include <Image.h>
+#include <FreCal.h>
+#include <ImageFeature.h>
 
 #define DIP_PI       3.14159265358979323846f
 #define DIP_E        2.718281828459f
@@ -14,65 +14,65 @@ class ImagProc {
 public:
     ImagProc();
     ~ImagProc();
-    // ²ÊÉ«Í¼Ïñ»Ò¶È»¯
+    // å½©è‰²å›¾åƒç°åº¦åŒ–
     Image rgbToGray(Image imageMat);
-    // Í¼Ïñ¾µÏñ,mode=0±íÊ¾Ë®Æ½¾µÏñ£¬=1±íÊ¾´¹Ö±¾µÏñ
+    // å›¾åƒé•œåƒ,mode=0è¡¨ç¤ºæ°´å¹³é•œåƒï¼Œ=1è¡¨ç¤ºåž‚ç›´é•œåƒ
     Image mirror(Image imageMat, int mode=0);
-    // Í¼ÏñÐý×ª
+    // å›¾åƒæ—‹è½¬
     Image rotate(Image imageMat, float degree, float fillcolor=0, int mode=1);
-    // Æ½ÒÆ
+    // å¹³ç§»
     Image translation(Image imageMat, int dx, int dy, float fillcolor=0);
     Image cut(Image imageMat, int startrow, int startcol, int endrow, int endcol);
-    // Ëõ·Å,mode=1£º×î½üÁÚ£¬mode=2£ºË«ÏßÐÔ²åÖµ£¬mode=3£ºÈý´ÎÄÚ²åÖµ
+    // ç¼©æ”¾,mode=1ï¼šæœ€è¿‘é‚»ï¼Œmode=2ï¼šåŒçº¿æ€§æ’å€¼ï¼Œmode=3ï¼šä¸‰æ¬¡å†…æ’å€¼
     Image zoom(Image imageMat, float scalex, float scaley, int mode=1);
 private:
-    // ½üËÆsin(pi*x)/(pi*x)
+    // è¿‘ä¼¼sin(pi*x)/(pi*x)
     float sinpixdivpix(float x);
 public:
-	// ÂË²¨
-	// --Æ½»¬--
-	// 1.¾ùÖµ
-	// 2.ÌÝ¶Èµ¹Êý¼ÓÈ¨Æ½»¬
-	// 3.³¬ÏÞÁÚÓòÆ½¾ù·¨
-	// 4.ÔëÉùÃÅÏÞ·¨
-	// 5.ÖÐÖµÂË²¨
-	// 6.³¬ÏÞÖÐÖµÂË²¨
-	// --Èñ»¯--
+	// æ»¤æ³¢
+	// --å¹³æ»‘--
+	// 1.å‡å€¼
+	// 2.æ¢¯åº¦å€’æ•°åŠ æƒå¹³æ»‘
+	// 3.è¶…é™é‚»åŸŸå¹³å‡æ³•
+	// 4.å™ªå£°é—¨é™æ³•
+	// 5.ä¸­å€¼æ»¤æ³¢
+	// 6.è¶…é™ä¸­å€¼æ»¤æ³¢
+	// --é”åŒ–--
 	// 7.Roberts
 	// 8.Prewitt
 	// 9.Sobel
 	// 10.Laplace
 	Image filter(Image imageMat, int type = 1, int size = 3, int T = 0);
-	// ·µ»ØÒ»¸öÂË²¨´°¿ÚµÄÖµ
-	// --Æ½»¬--
-	// 1.¾ùÖµ
-	// 2.ÌÝ¶Èµ¹Êý¼ÓÈ¨Æ½»¬
-	// 3.³¬ÏÞÁÚÓòÆ½¾ù·¨
-	// 4.ÔëÉùÃÅÏÞ·¨
-	// 5.ÖÐÖµÂË²¨
-	// 6.³¬ÏÞÖÐÖµÂË²¨
-	// --Èñ»¯--
+	// è¿”å›žä¸€ä¸ªæ»¤æ³¢çª—å£çš„å€¼
+	// --å¹³æ»‘--
+	// 1.å‡å€¼
+	// 2.æ¢¯åº¦å€’æ•°åŠ æƒå¹³æ»‘
+	// 3.è¶…é™é‚»åŸŸå¹³å‡æ³•
+	// 4.å™ªå£°é—¨é™æ³•
+	// 5.ä¸­å€¼æ»¤æ³¢
+	// 6.è¶…é™ä¸­å€¼æ»¤æ³¢
+	// --é”åŒ–--
 	// 7.Roberts
 	// 8.Prewitt
 	// 9.Sobel
 	// 10.Laplace
 	float getFilterWindow(int type, Matrix info, int size=3, int T=0);
-    // ÀíÏëµÍÍ¨ÂË²¨
+    // ç†æƒ³ä½Žé€šæ»¤æ³¢
     Image idealLowPassFilter(Image src, float D0, int n);
-    // °ÍÌØÎÖË¹µÍÍ¨ÂË²¨
+    // å·´ç‰¹æ²ƒæ–¯ä½Žé€šæ»¤æ³¢
     Image butterworthFilter(Image src, float D0, int n);
-    // ¸ßË¹µÍÍ¨ÂË²¨
+    // é«˜æ–¯ä½Žé€šæ»¤æ³¢
     Image gaussLowPassFilter(Image src, float D0, int n);
-    // Ö¸ÊýÂË²¨,n>0µÍÍ¨,n<0¸ßÍ¨
+    // æŒ‡æ•°æ»¤æ³¢,n>0ä½Žé€š,n<0é«˜é€š
     Image expFilter(Image src, float D0, int n);
-    // ÌÝÐÎÂË²¨    
+    // æ¢¯å½¢æ»¤æ³¢    
     Image trapeziumFilter(Image src, float D0, float D1, int n);
-    // Í¼Ïñ¶þÖµ»¯
+    // å›¾åƒäºŒå€¼åŒ–
     Image im2bw(Image src, float t);
-    // Í¼Ïñ¶þÖµ»¯£¨×î´óÀà¼ä·½²î·¨£©
+    // å›¾åƒäºŒå€¼åŒ–ï¼ˆæœ€å¤§ç±»é—´æ–¹å·®æ³•ï¼‰
     Image im2bw(Image src);
     int ostu(Matrix src);
-    // Ö±·½Í¼¾ùºâ»¯
+    // ç›´æ–¹å›¾å‡è¡¡åŒ–
     Image histEqualization(Image src);
 };
 #endif

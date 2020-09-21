@@ -1,4 +1,4 @@
-#include "ImageBase.h"
+#include <ImageBase.h>
 
 
 
@@ -61,13 +61,13 @@ Image ImageBase::open(std::string fileName) {
 
     fin.read((char*)temp, sizeof(int));
     bitmap.bitmapinfoheader.biClrImportant = *temp + (*(temp + 1) << 8) + (*(temp + 2) << 16) + (*(temp + 3) << 24);
-    //²ÊÉ«Í¼
+    //å½©è‰²å›¾
     if (bitmap.bitmapinfoheader.biBitCount / 8 == 3) {
-        //·ÖÅäÄÚ´æ¿Õ¼ä
+        //åˆ†é…å†…å­˜ç©ºé—´
         bitmap.R = (float*)malloc(sizeof(float)*bitmap.bitmapinfoheader.biHeight*bitmap.bitmapinfoheader.biWidth);
         bitmap.G = (float*)malloc(sizeof(float)*bitmap.bitmapinfoheader.biHeight*bitmap.bitmapinfoheader.biWidth);
         bitmap.B = (float*)malloc(sizeof(float)*bitmap.bitmapinfoheader.biHeight*bitmap.bitmapinfoheader.biWidth);
-        //¸ù¾İÆ«ÒÆÁ¿¶ÁÎÄ¼ş
+        //æ ¹æ®åç§»é‡è¯»æ–‡ä»¶
         fin.seekg(bitmap.bitmapheader.bfOffBits, std::ios::beg);
 
         for (int i = 0; i < bitmap.bitmapinfoheader.biHeight; i++) {
@@ -88,11 +88,11 @@ Image ImageBase::open(std::string fileName) {
         bitmapMat.matrixG.setMatrix(bitmap.bitmapinfoheader.biWidth, bitmap.bitmapinfoheader.biHeight, bitmap.G);
         bitmapMat.matrixB.setMatrix(bitmap.bitmapinfoheader.biWidth, bitmap.bitmapinfoheader.biHeight, bitmap.B);
     }
-    else//»ÒÉ«Í¼
+    else//ç°è‰²å›¾
     {
-        //·ÖÅäÄÚ´æ¿Õ¼ä
+        //åˆ†é…å†…å­˜ç©ºé—´
         bitmap.B = (float*)malloc(sizeof(float)*bitmap.bitmapinfoheader.biHeight*bitmap.bitmapinfoheader.biWidth);
-        //¸ù¾İÆ«ÒÆÁ¿¶ÁÎÄ¼ş
+        //æ ¹æ®åç§»é‡è¯»æ–‡ä»¶
         fin.seekg(bitmap.bitmapheader.bfOffBits, std::ios::beg);
 
         for (int i = 0; i < bitmap.bitmapinfoheader.biHeight; i++) {
@@ -118,19 +118,19 @@ Image ImageBase::open(std::string fileName) {
 
 
 
-// ±£´æÍ¼Æ¬
+// ä¿å­˜å›¾ç‰‡
 int ImageBase::save(std::string filename, Image bitmapMat) {
     std::ofstream fout(filename, std::ios::binary);
     unsigned char* temp;
-    int p = 0;//Ö¸Õë
-    //¼ÆËãÎÄ¼ş´óĞ¡
+    int p = 0;//æŒ‡é’ˆ
+    //è®¡ç®—æ–‡ä»¶å¤§å°
     int bfSize = bitmapMat.channel
         *(bitmapMat.matrixB.width + 4 - (bitmapMat.matrixB.width * bitmapMat.channel % 4))
         *bitmapMat.matrixB.height + 54;
     if (bitmapMat.channel == 1) {
         bfSize += 1024;
     }
-    //¼ÆËãÆ«ÒÆ
+    //è®¡ç®—åç§»
     int bfOffset;
     if (bitmapMat.channel == 3) {
         bfOffset = 54;
@@ -139,13 +139,13 @@ int ImageBase::save(std::string filename, Image bitmapMat) {
         bfOffset = 1024 + 54;
     }
 
-    //¼ÆËãÃ¿ÏñËØ´óĞ¡
+    //è®¡ç®—æ¯åƒç´ å¤§å°
     int biBitCount = bitmapMat.channel * 8;
-    //¼ÆËãÍ¼Ïñ´óĞ¡
+    //è®¡ç®—å›¾åƒå¤§å°
     int biSizeImage = bitmapMat.matrixB.width*bitmapMat.matrixB.height*bitmapMat.channel;
-    //³õÊ¼»¯temp
+    //åˆå§‹åŒ–temp
     temp = (unsigned char*)malloc(sizeof(unsigned char)*bfSize);
-    //Ğ´ÎÄ¼şÍ·
+    //å†™æ–‡ä»¶å¤´
     *(temp + p++) = 'B';
     *(temp + p++) = 'M';
     *(temp + p++) = (unsigned char)bfSize;
@@ -160,7 +160,7 @@ int ImageBase::save(std::string filename, Image bitmapMat) {
     *(temp + p++) = (unsigned char)(bfOffset >> 8);
     *(temp + p++) = (unsigned char)(bfOffset >> 16);
     *(temp + p++) = (unsigned char)(bfOffset >> 24);
-    //Ğ´Î»Í¼ĞÅÏ¢
+    //å†™ä½å›¾ä¿¡æ¯
     *(temp + p++) = 40;
     *(temp + p++) = 0;
     *(temp + p++) = 0;
@@ -188,7 +188,7 @@ int ImageBase::save(std::string filename, Image bitmapMat) {
     for (int i = 0; i < 16; i++) {
         *(temp + p++) = 0;
     }
-    //Ğ´Í¼ÏñÄÚÈİ
+    //å†™å›¾åƒå†…å®¹
     if (bitmapMat.channel == 3) {
         for (int i = 0; i < bitmapMat.matrixB.height; i++) {
             for (int j = 0; j < bitmapMat.matrixB.width; j++) {
@@ -204,7 +204,7 @@ int ImageBase::save(std::string filename, Image bitmapMat) {
         }
     }
     else {
-        //Ğ´µ÷É«°å
+        //å†™è°ƒè‰²æ¿
         for (int i = 0; i < 256; i++) {
             *(temp + p++) = i;
             *(temp + p++) = i;
@@ -229,7 +229,7 @@ int ImageBase::save(std::string filename, Image bitmapMat) {
 }
 
 
-// Ïú»Ù
+// é”€æ¯
 int ImageBase::destory(Image imageMat) {
     if (imageMat.channel == 3) {
         imageMat.matrixB.destory();

@@ -1,4 +1,4 @@
-#include "Matrix.h"
+#include <Matrix.h>
 
 
 
@@ -17,11 +17,11 @@ Matrix::~Matrix() {
 }
 
 
-// ÉèÖÃ¾ØÕó
+// è®¾ç½®çŸ©é˜µ
 int Matrix::setMatrix(int width, int height, float* data) {
     this->width = width;
     this->height = height;
-    this->data = data;//ÊÇÖ±½Ó¸³ÖµÖ¸Õë!²»ÒªÇå¿ÕÔ­Ö¸ÕëÄÚ´æ!
+    this->data = data;//æ˜¯ç›´æ¥èµ‹å€¼æŒ‡é’ˆ!ä¸è¦æ¸…ç©ºåŸæŒ‡é’ˆå†…å­˜!
     return 0;
 }
 
@@ -30,14 +30,14 @@ float Matrix::getPixel(int row, int col) {
     return temp;
 }
 
-// ÉèÖÃÄ³¸öÏñËØµÄÖµ
+// è®¾ç½®æŸä¸ªåƒç´ çš„å€¼
 int Matrix::setPixel(int row, int col, float data) {
     *(this->data + this->width*(row - 1) + col - 1) = data;
     return 0;
 }
 
 
-// »ñÈ¡Ä³Ò»ĞĞ£¬ĞèÒªÊÍ·ÅÄÚ´æ
+// è·å–æŸä¸€è¡Œï¼Œéœ€è¦é‡Šæ”¾å†…å­˜
 float* Matrix::getRows(int row) {
     float *temp = (float*)malloc(sizeof(float)*this->width);
     memcpy(temp, this->data + this->width*(row - 1), sizeof(float)*this->width);
@@ -45,7 +45,7 @@ float* Matrix::getRows(int row) {
 }
 
 
-// »ñÈ¡Ò»ÁĞ£¬ĞèÒªÊÍ·ÅÄÚ´æ
+// è·å–ä¸€åˆ—ï¼Œéœ€è¦é‡Šæ”¾å†…å­˜
 float* Matrix::getCols(int col) {
     float *temp = (float*)malloc(sizeof(float)*this->height);
     for (int i = 0; i < this->height; i++) {
@@ -55,14 +55,14 @@ float* Matrix::getCols(int col) {
 }
 
 
-// ÉèÖÃÄ³Ò»ĞĞ
+// è®¾ç½®æŸä¸€è¡Œ
 int Matrix::setRows(int row, float* data) {
     memcpy(this->data + this->width*(row - 1), data, this->width*sizeof(float));
     return 0;
 }
 
 
-// ÉèÖÃÄ³Ò»ÁĞ
+// è®¾ç½®æŸä¸€åˆ—
 int Matrix::setCols(int col, float* data) {
     for (int i = 0; i < this->height; i++) {
         *(this->data + this->width*i + col - 1) = *(data + i);
@@ -71,7 +71,7 @@ int Matrix::setCols(int col, float* data) {
 }
 
 
-// ×ªÖÃ
+// è½¬ç½®
 Matrix Matrix::transpose() {
     Matrix dest;
   /*  float* temp;
@@ -89,7 +89,7 @@ Matrix Matrix::transpose() {
 }
 
 
-// ¾ØÕóÏà¼Ó
+// çŸ©é˜µç›¸åŠ 
 Matrix Matrix::add(Matrix matrix) {
     if (matrix.width != this->width || matrix.height != this->height) {
         return Matrix();
@@ -105,7 +105,7 @@ Matrix Matrix::add(Matrix matrix) {
 }
 
 
-// µã³Ë
+// ç‚¹ä¹˜
 Matrix Matrix::dot(Matrix matrix) {
     if (matrix.width != this->width || matrix.height != this->height) {
         return Matrix();
@@ -121,7 +121,7 @@ Matrix Matrix::dot(Matrix matrix) {
 }
 
 
-// µã³Ë
+// ç‚¹ä¹˜
 Matrix Matrix::dot(float k) {
     Matrix dest;
     dest.create(this->width, this->height);
@@ -134,7 +134,7 @@ Matrix Matrix::dot(float k) {
 }
 
 
-// Ïà³Ë
+// ç›¸ä¹˜
 Matrix Matrix::mul(Matrix matrix) {
     if (this->width == matrix.height) {
         Matrix dest;
@@ -164,7 +164,7 @@ Matrix Matrix::mul(Matrix matrix) {
 }
 
 
-// ¾ØÕóÏà¼õ
+// çŸ©é˜µç›¸å‡
 Matrix Matrix::sub(Matrix matrix) {
     if (matrix.width != this->width || matrix.height != this->height) {
         return Matrix();
@@ -180,7 +180,7 @@ Matrix Matrix::sub(Matrix matrix) {
 }
 
 
-// ´´½¨¾ØÕó£¬·ÖÅäÄÚ´æ
+// åˆ›å»ºçŸ©é˜µï¼Œåˆ†é…å†…å­˜
 int Matrix::create(int width, int height) {
     this->width = width;
     this->height = height;
@@ -197,7 +197,7 @@ int Matrix::create(int width, int height,float fillcolor) {
 }
 
 
-// ¸´ÖÆ¾ØÕó
+// å¤åˆ¶çŸ©é˜µ
 Matrix Matrix::copy() {
     Matrix dest;
     dest.create(this->width, this->height);
@@ -206,7 +206,7 @@ Matrix Matrix::copy() {
 }
 
 
-// Ïú»Ù
+// é”€æ¯
 int Matrix::destory() {
     if(this->data!=nullptr)
         free(this->data);
@@ -214,21 +214,21 @@ int Matrix::destory() {
 }
 
 
-// »ñÈ¡Ä³Ò»ĞĞ
+// è·å–æŸä¸€è¡Œ
 int Matrix::getRows(int row, float* data) {
     memcpy(data, this->data + this->width*(row - 1), sizeof(float)*this->width);
     return 0;
 }
 
 
-// »ñÈ¡Ä³ĞĞÒ»¶¨·¶Î§µÄÖµ
+// è·å–æŸè¡Œä¸€å®šèŒƒå›´çš„å€¼
 int Matrix::getRowsPart(int row, float* data, int start, int end) {
 	memcpy(data, this->data + this->width*(row - 1) + start - 1, sizeof(float)*(end - start + 1));
 	return 0;
 }
 
 
-// StrassenËã·¨Ïà³Ë
+// Strassenç®—æ³•ç›¸ä¹˜
 Matrix Matrix::mulFast(Matrix matrix) {
 	if (!(this->width == this->height && matrix.width == matrix.height&& this->width == matrix.width) || matrix.width <= 64) {
 		return this->mul(matrix);
@@ -306,7 +306,7 @@ Matrix Matrix::cut(int startrow, int endrow, int startcol, int endcol) {
 
 
 
-void Matrix::operator=(Matrix& mat) {
+void Matrix::operator=(const Matrix& mat) {
     destory();
     if (mat.data != nullptr) {
         this->width = mat.width;
@@ -342,8 +342,8 @@ Matrix Matrix::expand(int newWidth, int newHeight) {
 Matrix Matrix::normalization(int max, int min) {
     int width = this->width;
     int height = this->height;
-    float temp1=FLT_MAX;//×îĞ¡Öµ
-    float temp2=FLT_MIN;//×î´óÖµ
+    float temp1=FLT_MAX;//æœ€å°å€¼
+    float temp2=FLT_MIN;//æœ€å¤§å€¼
 
     for (int i = 0; i < height; i++) {
         for (int j = 0; j < width; j++) {

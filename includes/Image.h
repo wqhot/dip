@@ -1,6 +1,6 @@
 #ifndef BITMAPMAT_H
 #define BITMAPMAT_H
-#include "Matrix.h"
+#include <Matrix.h>
 class Image {
 public:
     int channel;

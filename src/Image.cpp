@@ -1,4 +1,4 @@
-#include "Image.h"
+#include <Image.h>
 Image::Image() {
     this->channel = 1;
 }

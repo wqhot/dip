@@ -1,4 +1,4 @@
-#include "ImageFeature.h"
+#include <ImageFeature.h>
 
 
 
@@ -10,7 +10,7 @@ ImageFeature::~ImageFeature() {
 }
 
 
-// Ö±·½Í¼
+// ç›´æ–¹å›¾
 int* ImageFeature::getHist(Image src) {
     int *hist=0;
     if (src.channel == 3) {
@@ -18,7 +18,7 @@ int* ImageFeature::getHist(Image src) {
         for (int i = 0; i < 256 * 3; i++) {
             hist[i] = 0;
         }
-        //Éú³ÉÖ±·½Í¼
+        //ç”Ÿæˆç›´æ–¹å›¾
         for (int i = 0; i < src.matrixB.height; i++) {
             for (int j = 0; j < src.matrixB.width; j++) {
                 float temp = src.matrixR.getPixel(i + 1, j + 1);
@@ -34,7 +34,7 @@ int* ImageFeature::getHist(Image src) {
         for (int i = 0; i < 256; i++) {
             hist[i] = 0;
         }
-        //Éú³ÉÖ±·½Í¼
+        //ç”Ÿæˆç›´æ–¹å›¾
         for (int i = 0; i < src.matrixB.height; i++) {
             for (int j = 0; j < src.matrixB.width; j++) {
                 float temp = src.matrixB.getPixel(i + 1, j + 1);

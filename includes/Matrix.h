@@ -1,7 +1,7 @@
 ////////////////////////////////////////////////////////////////
 //FileName:Matrix.h//Creator:WQ
-//Date:2016Äê10ÔÂ30ÈÕ00:33:21
-//Comment:¾ØÕóµÄ»ù±¾²Ù×÷
+//Date:2016å¹´10æœˆ30æ—¥00:33:21
+//Comment:çŸ©é˜µçš„åŸºæœ¬æ“ä½œ
 //
 ///////////////////////////////////////////////////////////////
 #ifndef MATRIX_H
@@ -18,49 +18,49 @@ public:
     int width;
     int height;
     float*data;
-    // ÉèÖÃ¾ØÕó
+    // è®¾ç½®çŸ©é˜µ
     int setMatrix(int width, int height, float* data);
-    // µÃµ½Ä³¸öÏñËØµÄÖµ
+    // å¾—åˆ°æŸä¸ªåƒç´ çš„å€¼
     float getPixel(int row, int col);
-    // ÉèÖÃÄ³¸öÏñËØµÄÖµ
+    // è®¾ç½®æŸä¸ªåƒç´ çš„å€¼
     int setPixel(int row, int col, float data);
-    // »ñÈ¡Ä³Ò»ĞĞ£¬ĞèÒªÊÍ·ÅÄÚ´æ
+    // è·å–æŸä¸€è¡Œï¼Œéœ€è¦é‡Šæ”¾å†…å­˜
     float* getRows(int row);
-    // »ñÈ¡Ò»ÁĞ£¬ĞèÒªÊÍ·ÅÄÚ´æ£¬Âı
+    // è·å–ä¸€åˆ—ï¼Œéœ€è¦é‡Šæ”¾å†…å­˜ï¼Œæ…¢
     float* getCols(int col);
-    // ÉèÖÃÄ³Ò»ĞĞ
+    // è®¾ç½®æŸä¸€è¡Œ
     int setRows(int row, float* data);
-    // ÉèÖÃÄ³Ò»ÁĞ
+    // è®¾ç½®æŸä¸€åˆ—
     int setCols(int col, float* data);
-    // ×ªÖÃ
+    // è½¬ç½®
     Matrix transpose();
-    // ¾ØÕóÏà¼Ó
+    // çŸ©é˜µç›¸åŠ 
     Matrix add(Matrix matrix);
-    // µã³Ë
+    // ç‚¹ä¹˜
     Matrix dot(Matrix matrix);
-    // µã³Ë
+    // ç‚¹ä¹˜
     Matrix dot(float k);
-    // Ïà³Ë
+    // ç›¸ä¹˜
     Matrix mul(Matrix matrix);
-    // ¾ØÕóÏà¼õ
+    // çŸ©é˜µç›¸å‡
     Matrix sub(Matrix matrix);
-    // ´´½¨¾ØÕó£¬·ÖÅäÄÚ´æ
+    // åˆ›å»ºçŸ©é˜µï¼Œåˆ†é…å†…å­˜
     int create(int width, int height);
-    // ´´½¨¾ØÕó£¬·ÖÅäÄÚ´æ
+    // åˆ›å»ºçŸ©é˜µï¼Œåˆ†é…å†…å­˜
     int create(int width, int height,float fillcolor );
-    // ¸´ÖÆ¾ØÕó
+    // å¤åˆ¶çŸ©é˜µ
     Matrix copy();
-    // Ïú»Ù
+    // é”€æ¯
     int destory();
-    // »ñÈ¡Ä³Ò»ĞĞ
+    // è·å–æŸä¸€è¡Œ
     int getRows(int row, float* data);
-	// »ñÈ¡Ä³ĞĞÒ»¶¨·¶Î§µÄÖµ
+	// è·å–æŸè¡Œä¸€å®šèŒƒå›´çš„å€¼
 	int getRowsPart(int row, float* data, int start, int end);
-	// StrassenËã·¨Ïà³Ë
+	// Strassenç®—æ³•ç›¸ä¹˜
 	Matrix mulFast(Matrix matrix);
 	Matrix cut(int startrow, int endrow, int startcol, int endcol);
 	//Matrix& operator=(Matrix mat);
-    void operator = (Matrix & mat);
+    void operator = (const Matrix & mat);
 	Matrix expand(int newWidth, int newHeight);
     Matrix normalization(int max, int min);
 };

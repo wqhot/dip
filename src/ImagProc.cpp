@@ -1,4 +1,4 @@
-#include "ImagProc.h"
+#include <ImagProc.h>
 
 
 
@@ -10,7 +10,7 @@ ImagProc::~ImagProc() {
 }
 
 
-// ²ÊÉ«Í¼Ïñ»Ò¶È»¯
+// å½©è‰²å›¾åƒç°åº¦åŒ–
 Image ImagProc::rgbToGray(Image imageMat) {
     Image dest;
     if (imageMat.channel == 1) {
@@ -25,13 +25,13 @@ Image ImagProc::rgbToGray(Image imageMat) {
 }
 
 
-// Í¼Ïñ¾µÏñ,mode=0±íÊ¾Ë®Æ½¾µÏñ£¬=1±íÊ¾´¹Ö±¾µÏñ
+// å›¾åƒé•œåƒ,mode=0è¡¨ç¤ºæ°´å¹³é•œåƒï¼Œ=1è¡¨ç¤ºå‚ç›´é•œåƒ
 Image ImagProc::mirror(Image imageMat, int mode) {
     Image dest;
     if (imageMat.channel == 1) {
         dest.channel = 1;
         dest.matrixB = imageMat.matrixB.copy();
-        if (mode == 0) {//Ë®Æ½·­×ª
+        if (mode == 0) {//æ°´å¹³ç¿»è½¬
             float *temp = (float*)malloc(sizeof(float)*dest.matrixB.height);
             for (int i = 0; i < dest.matrixB.width / 2; i++) {
                 temp = dest.matrixB.getCols(i + 1);
@@ -55,7 +55,7 @@ Image ImagProc::mirror(Image imageMat, int mode) {
         dest.matrixB = imageMat.matrixB.copy();
         dest.matrixG = imageMat.matrixG.copy();
         dest.matrixR = imageMat.matrixR.copy();
-        if (mode == 0) {//Ë®Æ½·­×ª
+        if (mode == 0) {//æ°´å¹³ç¿»è½¬
             float *temp = (float*)malloc(sizeof(float)*dest.matrixB.height);
             for (int i = 0; i < dest.matrixB.width / 2; i++) {
                 temp = dest.matrixB.getCols(i + 1);
@@ -92,7 +92,7 @@ Image ImagProc::mirror(Image imageMat, int mode) {
 
 
 
-// Í¼ÏñĞı×ª
+// å›¾åƒæ—‹è½¬
 Image ImagProc::rotate(Image imageMat, float degree, float fillcolor, int mode) {
     degree = -degree;
     float angle = degree * DIP_PI / 180.;
@@ -113,7 +113,7 @@ Image ImagProc::rotate(Image imageMat, float degree, float fillcolor, int mode) 
     Image dest;
     if (imageMat.channel == 3) {
         dest.channel = 3;
-        if (mode == 1) {//×î½üÁÚ
+        if (mode == 1) {//æœ€è¿‘é‚»
             dest.matrixB.create(width, height, fillcolor);
             dest.matrixG.create(width, height, fillcolor);
             dest.matrixR.create(width, height, fillcolor);
@@ -133,7 +133,7 @@ Image ImagProc::rotate(Image imageMat, float degree, float fillcolor, int mode) 
                 }
             }
         }
-        else if (mode == 2) {//Ë«ÏßĞÔ²åÖµ
+        else if (mode == 2) {//åŒçº¿æ€§æ’å€¼
             dest.matrixB.create(width, height, fillcolor);
             dest.matrixG.create(width, height, fillcolor);
             dest.matrixR.create(width, height, fillcolor);
@@ -178,7 +178,7 @@ Image ImagProc::rotate(Image imageMat, float degree, float fillcolor, int mode) 
             dest.matrixR.create(width, height, fillcolor);
             for (int i = 0; i < dest.matrixB.height; i++) {
                 for (int j = 0; j < dest.matrixB.width; j++) {
-                    if (i == 0 || j == 0) {//×ó¡¢ÉÏ±ßÔµ
+                    if (i == 0 || j == 0) {//å·¦ã€ä¸Šè¾¹ç¼˜
                         int tempi = i - midH;
                         int tempj = j - midW;
                         int newx = (int)(tempj*alpha - tempi*beta + 0.5);
@@ -191,7 +191,7 @@ Image ImagProc::rotate(Image imageMat, float degree, float fillcolor, int mode) 
                             dest.matrixR.setPixel(i + 1, j + 1, imageMat.matrixR.getPixel(newy + 1, newx + 1));
                         }
                     }
-                    else if (i >= dest.matrixB.height - 3 || j >= dest.matrixB.width - 3) {//ÓÒ¡¢ÏÂ±ßÔµ
+                    else if (i >= dest.matrixB.height - 3 || j >= dest.matrixB.width - 3) {//å³ã€ä¸‹è¾¹ç¼˜
                         int tempi = i - midH;
                         int tempj = j - midW;
                         int newx = (int)(tempj*alpha - tempi*beta + 0.5);
@@ -205,7 +205,7 @@ Image ImagProc::rotate(Image imageMat, float degree, float fillcolor, int mode) 
                         }
                     }
                     else {
-                        //ÔÚÕâÀï£¬ºó×ºÎªi±íÊ¾ÁĞ,ºó×ºÎªj±íÊ¾ĞĞ
+                        //åœ¨è¿™é‡Œï¼Œåç¼€ä¸ºiè¡¨ç¤ºåˆ—,åç¼€ä¸ºjè¡¨ç¤ºè¡Œ
                         int tempj = i - midH;
                         int tempi = j - midW;
                         float newfi = tempi*alpha - tempj*beta;
@@ -245,7 +245,7 @@ Image ImagProc::rotate(Image imageMat, float degree, float fillcolor, int mode) 
     }
     else if (imageMat.channel == 1) {
         dest.channel = 1;
-        if (mode == 1) {//×î½üÁÚ
+        if (mode == 1) {//æœ€è¿‘é‚»
             dest.matrixB.create(width, height,fillcolor);
             for (int i = 0; i < dest.matrixB.height; i++) {
                 for (int j = 0; j < dest.matrixB.width; j++) {
@@ -261,7 +261,7 @@ Image ImagProc::rotate(Image imageMat, float degree, float fillcolor, int mode) 
                 }
             }
         }
-        else if (mode == 2) {//Ë«ÏßĞÔ²åÖµ
+        else if (mode == 2) {//åŒçº¿æ€§æ’å€¼
             dest.matrixB.create(width, height, fillcolor);
             for (int i = 0; i < dest.matrixB.height; i++) {
                 for (int j = 0; j < dest.matrixB.width; j++) {
@@ -292,7 +292,7 @@ Image ImagProc::rotate(Image imageMat, float degree, float fillcolor, int mode) 
             dest.matrixB.create(width, height, fillcolor);
             for (int i = 0; i < dest.matrixB.height; i++) {
                 for (int j = 0; j < dest.matrixB.width; j++) {
-                    if (i == 0 || j == 0) {//×ó¡¢ÉÏ±ßÔµ
+                    if (i == 0 || j == 0) {//å·¦ã€ä¸Šè¾¹ç¼˜
                         int tempi = i - midH;
                         int tempj = j - midW;
                         int newx = (int)(tempj*alpha - tempi*beta + 0.5);
@@ -303,7 +303,7 @@ Image ImagProc::rotate(Image imageMat, float degree, float fillcolor, int mode) 
                             dest.matrixB.setPixel(i + 1, j + 1, imageMat.matrixB.getPixel(newy + 1, newx + 1));
                         }
                     }
-                    else if (i >= dest.matrixB.height - 3 || j >= dest.matrixB.width - 3) {//ÓÒ¡¢ÏÂ±ßÔµ
+                    else if (i >= dest.matrixB.height - 3 || j >= dest.matrixB.width - 3) {//å³ã€ä¸‹è¾¹ç¼˜
                         int tempi = i - midH;
                         int tempj = j - midW;
                         int newx = (int)(tempj*alpha - tempi*beta + 0.5);
@@ -315,7 +315,7 @@ Image ImagProc::rotate(Image imageMat, float degree, float fillcolor, int mode) 
                         }
                     }
                     else {
-                        //ÔÚÕâÀï£¬ºó×ºÎªi±íÊ¾ÁĞ,ºó×ºÎªj±íÊ¾ĞĞ
+                        //åœ¨è¿™é‡Œï¼Œåç¼€ä¸ºiè¡¨ç¤ºåˆ—,åç¼€ä¸ºjè¡¨ç¤ºè¡Œ
                         int tempj = i - midH;
                         int tempi = j - midW;
                         float newfi = tempi*alpha - tempj*beta;
@@ -351,7 +351,7 @@ Image ImagProc::rotate(Image imageMat, float degree, float fillcolor, int mode) 
 }
 
 
-// Æ½ÒÆ
+// å¹³ç§»
 Image ImagProc::translation(Image imageMat, int dx, int dy, float fillcolor) {
     Image dest;
     dx = -dx;
@@ -425,7 +425,7 @@ Image ImagProc::cut(Image imageMat, int startrow, int startcol, int endrow, int 
 }
 
 
-// Ëõ·Å
+// ç¼©æ”¾
 Image ImagProc::zoom(Image imageMat, float scalex,float scaley, int mode) {
     Image dest;
     int width = (int)(scalex*imageMat.matrixB.width);
@@ -435,7 +435,7 @@ Image ImagProc::zoom(Image imageMat, float scalex,float scaley, int mode) {
     }
     if (imageMat.channel == 3) {
         dest.channel = 3;
-        if (mode == 1) {//×î½üÁÚ
+        if (mode == 1) {//æœ€è¿‘é‚»
             dest.matrixB.create(width, height);
             dest.matrixG.create(width, height);
             dest.matrixR.create(width, height);
@@ -449,7 +449,7 @@ Image ImagProc::zoom(Image imageMat, float scalex,float scaley, int mode) {
                 }
             }
         }
-        else if (mode == 2) {//Ë«ÏßĞÔ²åÖµ
+        else if (mode == 2) {//åŒçº¿æ€§æ’å€¼
             dest.matrixB.create(width, height);
             dest.matrixG.create(width, height);
             dest.matrixR.create(width, height);
@@ -489,14 +489,14 @@ Image ImagProc::zoom(Image imageMat, float scalex,float scaley, int mode) {
             dest.matrixR.create(width, height);
             for (int i = 0; i < dest.matrixB.height; i++) {
                 for (int j = 0; j < dest.matrixB.width; j++) {
-                    if (i == 0 || j == 0) {//×ó¡¢ÉÏ±ßÔµ
+                    if (i == 0 || j == 0) {//å·¦ã€ä¸Šè¾¹ç¼˜
                         int newx = (int)(j / scalex + 0.5);
                         int newy = (int)(i / scaley + 0.5);
                         dest.matrixB.setPixel(i + 1, j + 1, imageMat.matrixB.getPixel(newy + 1, newx + 1));
                         dest.matrixG.setPixel(i + 1, j + 1, imageMat.matrixG.getPixel(newy + 1, newx + 1));
                         dest.matrixR.setPixel(i + 1, j + 1, imageMat.matrixR.getPixel(newy + 1, newx + 1));
                     }
-                    else if (i >= dest.matrixB.height - 3 || j >= dest.matrixB.width-3) {//ÓÒ¡¢ÏÂ±ßÔµ
+                    else if (i >= dest.matrixB.height - 3 || j >= dest.matrixB.width-3) {//å³ã€ä¸‹è¾¹ç¼˜
                         int newx = (int)(j / scalex + 0.5);
                         int newy = (int)(i / scaley + 0.5);
                         dest.matrixB.setPixel(i + 1, j + 1, imageMat.matrixB.getPixel(newy + 1, newx + 1));
@@ -550,7 +550,7 @@ Image ImagProc::zoom(Image imageMat, float scalex,float scaley, int mode) {
                 }
             }
         }
-        else if (mode == 2) {//Ë«ÏßĞÔ²åÖµ
+        else if (mode == 2) {//åŒçº¿æ€§æ’å€¼
             dest.matrixB.create(width, height);
             for (int i = 0; i < dest.matrixB.height; i++) {
                 for (int j = 0; j < dest.matrixB.width; j++) {
@@ -576,13 +576,13 @@ Image ImagProc::zoom(Image imageMat, float scalex,float scaley, int mode) {
             dest.matrixB.create(width, height);
             for (int i = 0; i < dest.matrixB.height; i++) {
                 for (int j = 0; j < dest.matrixB.width; j++) {
-                    if (i == 0 || j == 0) {//×ó¡¢ÉÏ±ßÔµ
+                    if (i == 0 || j == 0) {//å·¦ã€ä¸Šè¾¹ç¼˜
                         int newx = (int)(j / scalex + 0.5);
                         int newy = (int)(i / scaley + 0.5);
                         dest.matrixB.setPixel(i + 1, j + 1, imageMat.matrixB.getPixel(newy + 1, newx + 1));
                        
                     }
-                    else if (i >= dest.matrixB.height - 3 || j >= dest.matrixB.width-3) {//ÓÒ¡¢ÏÂ±ßÔµ
+                    else if (i >= dest.matrixB.height - 3 || j >= dest.matrixB.width-3) {//å³ã€ä¸‹è¾¹ç¼˜
                         int newx = (int)(j / scalex + 0.5);
                         int newy = (int)(i / scaley + 0.5);
                         dest.matrixB.setPixel(i + 1, j + 1, imageMat.matrixB.getPixel(newy + 1, newx + 1));
@@ -621,7 +621,7 @@ Image ImagProc::zoom(Image imageMat, float scalex,float scaley, int mode) {
 }
 
 
-// ½üËÆsin(pi*x)/(pi*x)
+// è¿‘ä¼¼sin(pi*x)/(pi*x)
 float ImagProc::sinpixdivpix(float x) {
     float absx = fabs(x);
     if (absx >= 0 && absx < 1) {
@@ -636,7 +636,7 @@ float ImagProc::sinpixdivpix(float x) {
 }
 
 
-// ÂË²¨
+// æ»¤æ³¢
 Image ImagProc::filter(Image imageMat, int type, int size, int T) {
 	if (size % 2 != 1 || size < 3) {
 		size = 3;
@@ -696,13 +696,13 @@ Image ImagProc::filter(Image imageMat, int type, int size, int T) {
 }
 
 
-// ²úÉúÒ»¸öÂË²¨´°¿Ú
+// äº§ç”Ÿä¸€ä¸ªæ»¤æ³¢çª—å£
 float ImagProc::getFilterWindow(int type, Matrix info, int size, int T) {
 	float result = 0.0f;
 	if ((size - 1) % 2 != 0) {
 		size = 3;
 	}
-	if (type == 1) {//¾ùÖµ	
+	if (type == 1) {//å‡å€¼	
 		float sum = 0.0f;
 		for (int i = 0; i < size; i++) {
 			for (int j = 0; j < size; j++) {
@@ -819,7 +819,7 @@ float ImagProc::getFilterWindow(int type, Matrix info, int size, int T) {
 }
 
 
-// ÀíÏëÂË²¨
+// ç†æƒ³æ»¤æ³¢
 Image ImagProc::idealLowPassFilter(Image src, float D0,int n) {
     FreCal freCal;
     Image dst;
@@ -915,7 +915,7 @@ Image ImagProc::idealLowPassFilter(Image src, float D0,int n) {
 }
 
 
-// °ÍÌØÎÖË¹µÍÍ¨ÂË²¨
+// å·´ç‰¹æ²ƒæ–¯ä½é€šæ»¤æ³¢
 Image ImagProc::butterworthFilter(Image src, float D0, int n) {
     FreCal freCal;
     Image dst;
@@ -990,7 +990,7 @@ Image ImagProc::butterworthFilter(Image src, float D0, int n) {
 }
 
 
-// ¸ßË¹µÍÍ¨ÂË²¨
+// é«˜æ–¯ä½é€šæ»¤æ³¢
 Image ImagProc::gaussLowPassFilter(Image src, float D0, int n) {
     FreCal freCal;
     Image dst;
@@ -1075,7 +1075,7 @@ Image ImagProc::gaussLowPassFilter(Image src, float D0, int n) {
 }
 
 
-// Ö¸ÊıÂË²¨,n>0µÍÍ¨,n<0¸ßÍ¨
+// æŒ‡æ•°æ»¤æ³¢,n>0ä½é€š,n<0é«˜é€š
 Image ImagProc::expFilter(Image src, float D0, int n) {
     FreCal freCal;
     Image dst;
@@ -1149,7 +1149,7 @@ Image ImagProc::expFilter(Image src, float D0, int n) {
     return dst;
 }
 
-// ÌİĞÎÂË²¨
+// æ¢¯å½¢æ»¤æ³¢
 Image ImagProc::trapeziumFilter(Image src, float D0, float D1, int n) {
     FreCal freCal;
     Image dst;
@@ -1268,7 +1268,7 @@ Image ImagProc::trapeziumFilter(Image src, float D0, float D1, int n) {
 }
 
 
-// Í¼Ïñ¶şÖµ»¯
+// å›¾åƒäºŒå€¼åŒ–
 Image ImagProc::im2bw(Image src, float t) {
     Image dst;
     if (src.channel == 3) {
@@ -1292,7 +1292,7 @@ Image ImagProc::im2bw(Image src, float t) {
 }
 
 
-// Í¼Ïñ¶şÖµ»¯£¨×î´óÀà¼ä·½²î·¨£©
+// å›¾åƒäºŒå€¼åŒ–ï¼ˆæœ€å¤§ç±»é—´æ–¹å·®æ³•ï¼‰
 Image ImagProc::im2bw(Image src) {
     int t = ostu(src.matrixB);   
     return im2bw(src, t);
@@ -1306,73 +1306,73 @@ int ImagProc::ostu(Matrix src) {
     int size = height * width;
     float color;
     int step = 1;
-    int*pixelNum = (int*)malloc(sizeof(int)*256); //Í¼ÏóÖ±·½Í¼£¬¹²256¸öµã
+    int*pixelNum = (int*)malloc(sizeof(int)*256); //å›¾è±¡ç›´æ–¹å›¾ï¼Œå…±256ä¸ªç‚¹
     int n, n1, n2;
-    int total; //totalÎª×ÜºÍ£¬ÀÛ¼ÆÖµ
-    double m1, m2, sum, csum, fmax, sb; //sbÎªÀà¼ä·½²î£¬fmax´æ´¢×î´ó·½²îÖµ
+    int total; //totalä¸ºæ€»å’Œï¼Œç´¯è®¡å€¼
+    double m1, m2, sum, csum, fmax, sb; //sbä¸ºç±»é—´æ–¹å·®ï¼Œfmaxå­˜å‚¨æœ€å¤§æ–¹å·®å€¼
     int k, t, q;
     for (int i = 0; i < 256; i++) {
         pixelNum[i] = 0;
     }
-    //Éú³ÉÖ±·½Í¼
+    //ç”Ÿæˆç›´æ–¹å›¾
     for (int i = 0; i < height; i++) {
         for (int j = 0; j < width; j++) {
             float temp = src.getPixel(i + 1, j + 1);
             pixelNum[(int)temp]++;
         }
     }
-    //Ö±·½Í¼Æ½»¬»¯
+    //ç›´æ–¹å›¾å¹³æ»‘åŒ–
     for (k = 0; k <= 255; k++) {
         total = 0;
-        for (t = -2; t <= 2; t++) //Óë¸½½ü2¸ö»Ò¶È×öÆ½»¬»¯£¬tÖµÓ¦È¡½ÏĞ¡µÄÖµ
+        for (t = -2; t <= 2; t++) //ä¸é™„è¿‘2ä¸ªç°åº¦åšå¹³æ»‘åŒ–ï¼Œtå€¼åº”å–è¾ƒå°çš„å€¼
         {
             q = k + t;
-            if (q < 0) //Ô½½ç´¦Àí
+            if (q < 0) //è¶Šç•Œå¤„ç†
                 q = 0;
             if (q > 255)
                 q = 255;
-            total = total + pixelNum[q]; //totalÎª×ÜºÍ£¬ÀÛ¼ÆÖµ
+            total = total + pixelNum[q]; //totalä¸ºæ€»å’Œï¼Œç´¯è®¡å€¼
         }
-        //Æ½»¬»¯£¬×ó±ß2¸ö+ÖĞ¼ä1¸ö+ÓÒ±ß2¸ö»Ò¶È£¬¹²5¸ö£¬ËùÒÔ×ÜºÍ³ıÒÔ5£¬ºóÃæ¼Ó0.5ÊÇÓÃĞŞÕıÖµ
+        //å¹³æ»‘åŒ–ï¼Œå·¦è¾¹2ä¸ª+ä¸­é—´1ä¸ª+å³è¾¹2ä¸ªç°åº¦ï¼Œå…±5ä¸ªï¼Œæ‰€ä»¥æ€»å’Œé™¤ä»¥5ï¼Œåé¢åŠ 0.5æ˜¯ç”¨ä¿®æ­£å€¼
         pixelNum[k] = (int)((float)total / 5.0 + 0.5);
     }
-    //ÇóãĞÖµ
+    //æ±‚é˜ˆå€¼
     sum = csum = 0.0;
     n = 0;
-    //¼ÆËã×ÜµÄÍ¼ÏóµÄµãÊıºÍÖÊÁ¿¾Ø£¬ÎªºóÃæµÄ¼ÆËã×ö×¼±¸
+    //è®¡ç®—æ€»çš„å›¾è±¡çš„ç‚¹æ•°å’Œè´¨é‡çŸ©ï¼Œä¸ºåé¢çš„è®¡ç®—åšå‡†å¤‡
     for (k = 0; k <= 255; k++) {
-        //x*f(x)ÖÊÁ¿¾Ø£¬Ò²¾ÍÊÇÃ¿¸ö»Ò¶ÈµÄÖµ³ËÒÔÆäµãÊı£¨¹éÒ»»¯ºóÎª¸ÅÂÊ£©£¬sumÎªÆä×ÜºÍ
+        //x*f(x)è´¨é‡çŸ©ï¼Œä¹Ÿå°±æ˜¯æ¯ä¸ªç°åº¦çš„å€¼ä¹˜ä»¥å…¶ç‚¹æ•°ï¼ˆå½’ä¸€åŒ–åä¸ºæ¦‚ç‡ï¼‰ï¼Œsumä¸ºå…¶æ€»å’Œ
         sum += (double)k * (double)pixelNum[k];
-        n += pixelNum[k]; //nÎªÍ¼Ïó×ÜµÄµãÊı£¬¹éÒ»»¯ºó¾ÍÊÇÀÛ»ı¸ÅÂÊ
+        n += pixelNum[k]; //nä¸ºå›¾è±¡æ€»çš„ç‚¹æ•°ï¼Œå½’ä¸€åŒ–åå°±æ˜¯ç´¯ç§¯æ¦‚ç‡
     }
-    fmax = -1.0; //Àà¼ä·½²îsb²»¿ÉÄÜÎª¸º£¬ËùÒÔfmax³õÊ¼ÖµÎª-1²»Ó°Ïì¼ÆËãµÄ½øĞĞ
+    fmax = -1.0; //ç±»é—´æ–¹å·®sbä¸å¯èƒ½ä¸ºè´Ÿï¼Œæ‰€ä»¥fmaxåˆå§‹å€¼ä¸º-1ä¸å½±å“è®¡ç®—çš„è¿›è¡Œ
     n1 = 0;
-    for (k = 0; k < 255; k++) //¶ÔÃ¿¸ö»Ò¶È£¨´Ó0µ½255£©¼ÆËãÒ»´Î·Ö¸îºóµÄÀà¼ä·½²îsb
+    for (k = 0; k < 255; k++) //å¯¹æ¯ä¸ªç°åº¦ï¼ˆä»0åˆ°255ï¼‰è®¡ç®—ä¸€æ¬¡åˆ†å‰²åçš„ç±»é—´æ–¹å·®sb
     {
-        n1 += pixelNum[k]; //n1ÎªÔÚµ±Ç°ãĞÖµ±éÇ°¾°Í¼ÏóµÄµãÊı
+        n1 += pixelNum[k]; //n1ä¸ºåœ¨å½“å‰é˜ˆå€¼éå‰æ™¯å›¾è±¡çš„ç‚¹æ•°
         if (n1 == 0) {
             continue;
-        } //Ã»ÓĞ·Ö³öÇ°¾°ºó¾°
-        n2 = n - n1; //n2Îª±³¾°Í¼ÏóµÄµãÊı
-                     //n2Îª0±íÊ¾È«²¿¶¼ÊÇºó¾°Í¼Ïó£¬Óën1=0Çé¿öÀàËÆ£¬Ö®ºóµÄ±éÀú²»¿ÉÄÜÊ¹Ç°¾°µãÊıÔö¼Ó£¬ËùÒÔ´ËÊ±¿ÉÒÔÍË³öÑ­»·
+        } //æ²¡æœ‰åˆ†å‡ºå‰æ™¯åæ™¯
+        n2 = n - n1; //n2ä¸ºèƒŒæ™¯å›¾è±¡çš„ç‚¹æ•°
+                     //n2ä¸º0è¡¨ç¤ºå…¨éƒ¨éƒ½æ˜¯åæ™¯å›¾è±¡ï¼Œä¸n1=0æƒ…å†µç±»ä¼¼ï¼Œä¹‹åçš„éå†ä¸å¯èƒ½ä½¿å‰æ™¯ç‚¹æ•°å¢åŠ ï¼Œæ‰€ä»¥æ­¤æ—¶å¯ä»¥é€€å‡ºå¾ªç¯
         if (n2 == 0) {
             break;
         }
-        csum += (double)k * pixelNum[k]; //Ç°¾°µÄ¡°»Ò¶ÈµÄÖµ*ÆäµãÊı¡±µÄ×ÜºÍ
-        m1 = csum / n1; //m1ÎªÇ°¾°µÄÆ½¾ù»Ò¶È
-        m2 = (sum - csum) / n2; //m2Îª±³¾°µÄÆ½¾ù»Ò¶È
-        sb = (double)n1 * (double)n2 * (m1 - m2) * (m1 - m2); //sbÎªÀà¼ä·½²î
-        if (sb > fmax) //Èç¹ûËã³öµÄÀà¼ä·½²î´óÓÚÇ°Ò»´ÎËã³öµÄÀà¼ä·½²î
+        csum += (double)k * pixelNum[k]; //å‰æ™¯çš„â€œç°åº¦çš„å€¼*å…¶ç‚¹æ•°â€çš„æ€»å’Œ
+        m1 = csum / n1; //m1ä¸ºå‰æ™¯çš„å¹³å‡ç°åº¦
+        m2 = (sum - csum) / n2; //m2ä¸ºèƒŒæ™¯çš„å¹³å‡ç°åº¦
+        sb = (double)n1 * (double)n2 * (m1 - m2) * (m1 - m2); //sbä¸ºç±»é—´æ–¹å·®
+        if (sb > fmax) //å¦‚æœç®—å‡ºçš„ç±»é—´æ–¹å·®å¤§äºå‰ä¸€æ¬¡ç®—å‡ºçš„ç±»é—´æ–¹å·®
         {
-            fmax = sb; //fmaxÊ¼ÖÕÎª×î´óÀà¼ä·½²î£¨otsu£©
-            threshold = k; //È¡×î´óÀà¼ä·½²îÊ±¶ÔÓ¦µÄ»Ò¶ÈµÄk¾ÍÊÇ×î¼ÑãĞÖµ
+            fmax = sb; //fmaxå§‹ç»ˆä¸ºæœ€å¤§ç±»é—´æ–¹å·®ï¼ˆotsuï¼‰
+            threshold = k; //å–æœ€å¤§ç±»é—´æ–¹å·®æ—¶å¯¹åº”çš„ç°åº¦çš„kå°±æ˜¯æœ€ä½³é˜ˆå€¼
         }
     }
     return threshold;
 }
 
 
-// Ö±·½Í¼¾ùºâ»¯
+// ç›´æ–¹å›¾å‡è¡¡åŒ–
 Image ImagProc::histEqualization(Image src) {
     Image dst = src.copy();
     ImageFeature imageFeature;

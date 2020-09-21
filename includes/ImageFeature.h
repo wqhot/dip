@@ -1,12 +1,12 @@
 #ifndef IMAGEFEATURE_H
 #define IMAGEFEATURE_H
-#include "Image.h"
-#include "Matrix.h"
+#include <Image.h>
+#include <Matrix.h>
 class ImageFeature {
 public:
     ImageFeature();
     ~ImageFeature();
-    // ֱ��ͼ
+    // 直方图
     int* getHist(Image src);
 };
 #endif
