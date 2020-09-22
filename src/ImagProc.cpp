@@ -1,4 +1,5 @@
 #include <ImagProc.h>
+#include <tic_toc.h>
 
 namespace dip
 {
@@ -1134,11 +1135,14 @@ namespace dip
         else
         {
             dst.channel = 1;
+            TicToc tic;
             int w = src.matrixB.width;
             int h = src.matrixB.height;
             Complex *fuliye1 = 0;
             Matrix _src1 = src.matrixB.copy();
             fuliye1 = freCal.DFT2D(_src1);
+            tic.toc_print("DFT2D");
+            tic.restart_toc();
             for (int i = 0; i < _src1.height; i++)
             {
                 for (int j = 0; j < _src1.width; j++)
@@ -1153,7 +1157,10 @@ namespace dip
                     *(fuliye1 + i * _src1.width + j) = ftemp1;
                 }
             }
+            tic.toc_print("xunhuan");
+            tic.restart_toc();
             freCal.IDFT2D(fuliye1, dst.matrixB, _src1.width, _src1.height, w, h);
+            tic.toc_print("IDFT2D");
             _src1.destory();
             delete[] fuliye1;
         }
@@ -1222,11 +1229,14 @@ namespace dip
         else
         {
             dst.channel = 1;
+            TicToc tic;
             int w = src.matrixB.width;
             int h = src.matrixB.height;
             Complex *fuliye1 = 0;
             Matrix _src1 = src.matrixB.copy();
             fuliye1 = freCal.DFT2D(_src1);
+            tic.toc_print("DFT2D");
+            tic.restart_toc();
             for (int i = 0; i < _src1.height; i++)
             {
                 for (int j = 0; j < _src1.width; j++)
@@ -1248,7 +1258,10 @@ namespace dip
                     *(fuliye1 + i * _src1.width + j) = ftemp1;
                 }
             }
+            tic.toc_print("xunhuan");
+            tic.restart_toc();
             freCal.IDFT2D(fuliye1, dst.matrixB, _src1.width, _src1.height, w, h);
+            tic.toc_print("IDFT2D");
             _src1.destory();
             delete[] fuliye1;
         }

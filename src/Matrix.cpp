@@ -350,7 +350,7 @@ namespace dip
 
     Matrix Matrix::expand(int newWidth, int newHeight)
     {
-        if (newWidth <= this->width && newHeight <= this->height)
+        if (newWidth <= this->width || newHeight <= this->height)
         {
             return *this;
         }
@@ -359,18 +359,9 @@ namespace dip
         {
 
             memcpy(temp + i * newWidth, this->data + i * this->width, sizeof(float) * this->width);
-            for (int j = 0; j < newWidth - this->width; j++)
-            {
-                *(temp + i * newWidth + this->width + j) = (float)0.0;
-            }
+            memset(temp + i * newWidth + this->width, 0, sizeof(float) * (newWidth - this->width));
         }
-        for (int i = this->height; i < newHeight; i++)
-        {
-            for (int j = 0; j < newWidth; j++)
-            {
-                *(temp + i * newWidth + j) = (float)0.0;
-            }
-        }
+        memset(temp + this->height * newWidth, 0, sizeof(float) * newWidth * (newHeight - this->height));
         Matrix dst(newHeight, newWidth, temp);
         delete[] temp;
         return dst;
